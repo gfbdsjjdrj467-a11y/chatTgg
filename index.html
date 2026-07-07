@@ -5,54 +5,90 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>ChatTgg — web demo</title>
   <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#2a9df4">
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
       <header class="sidebar-header">
         <h1>ChatTgg</h1>
+        <button class="new-chat" aria-label="New chat">+</button>
       </header>
-      <div class="chats">
-        <div class="chat active">
+      <div class="chats" id="chats">
+        <div class="chat active" data-name="Алекс">
           <div class="avatar">А</div>
           <div class="meta">
             <div class="name">Алекс</div>
             <div class="preview">Привет! Как дела?</div>
           </div>
+          <div class="time">12:34</div>
         </div>
-        <div class="chat">
+        <div class="chat" data-name="Бот">
           <div class="avatar">Б</div>
           <div class="meta">
             <div class="name">Бот</div>
             <div class="preview">Новый фича-релиз</div>
           </div>
+          <div class="time">10:10</div>
         </div>
       </div>
     </aside>
 
     <main class="chat-panel">
       <header class="chat-header">
-        <div class="title">Алекс</div>
+        <div class="left">
+          <div class="avatar-lg">А</div>
+          <div class="title-group">
+            <div class="title">Алекс</div>
+            <div class="status">online</div>
+          </div>
+        </div>
         <div class="actions">
+          <button class="icon-btn">🔍</button>
           <button class="icon-btn">⋮</button>
         </div>
       </header>
 
-      <div class="messages" id="messages">
-        <div class="message incoming">
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="day-sep">Сегодня</div>
+        <div class="message incoming" data-id="m1">
           <div class="bubble">Привет! Я демонстрационная версия чата.</div>
+          <div class="meta-msg"><span class="time">09:01</span></div>
         </div>
-        <div class="message outgoing">
+        <div class="message outgoing" data-id="m2">
           <div class="bubble">Круто — сделаем сайт похожим на Telegram.</div>
+          <div class="meta-msg"><span class="time">09:02</span></div>
         </div>
       </div>
 
-      <form class="composer" id="composer">
-        <input id="input" placeholder="Напишите сообщение..." autocomplete="off">
+      <form class="composer" id="composer" autocomplete="off">
+        <button type="button" class="attach-btn" id="attach" aria-label="Attach">📎</button>
+        <input id="input" name="message" placeholder="Напишите сообщение..." autocomplete="off">
         <button id="send" class="send-btn" type="submit" aria-label="Send">
-          <span class="send-icon">➤</span>
+          <svg class="send-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 21L23 12L2 3L8 12L2 21Z" fill="currentColor" />
+          </svg>
         </button>
       </form>
+
+      <!-- message actions popup -->
+      <div id="msg-actions" class="msg-actions" role="dialog" aria-hidden="true">
+        <button class="act" data-action="reply">Ответить</button>
+        <button class="act" data-action="copy">Копировать</button>
+        <button class="act" data-action="delete">Удалить</button>
+      </div>
+
+      <!-- confirmation modal -->
+      <div id="confirm" class="confirm" role="dialog" aria-hidden="true" aria-modal="true">
+        <div class="confirm-card">
+          <div class="confirm-message" id="confirm-message">Подтвердите действие</div>
+          <div class="confirm-actions">
+            <button id="confirm-ok" class="btn-confirm">Подтвердить</button>
+            <button id="confirm-cancel" class="btn-cancel">Отмена</button>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 
