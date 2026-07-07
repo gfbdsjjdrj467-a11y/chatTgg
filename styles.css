@@ -1,4 +1,4 @@
-/* styles.css — enhanced Telegram-like UI + confirmation modal */
+/* styles.css — enhanced Telegram-like UI + emoji panel (adapted from Webogram UI) */
 :root{
   --bg:#e6eef7;
   --surface:#ffffff;
@@ -59,7 +59,8 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-seri
 .react{background:white;padding:4px 6px;border-radius:999px;box-shadow:0 6px 18px var(--shadow);cursor:pointer}
 
 /* Composer */
-.composer{display:flex;gap:8px;padding:12px;border-top:1px solid #eef6fb;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));align-items:center}
+.composer{display:flex;gap:8px;padding:12px;border-top:1px solid #eef6fb;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));align-items:center;position:relative}
+.emoji-btn{background:transparent;border:0;font-size:20px;cursor:pointer}
 .attach-btn{background:transparent;border:0;font-size:20px;cursor:pointer}
 .composer input{flex:1;padding:12px 14px;border-radius:999px;border:1px solid #e8f2fb;background:white;outline:none;font-size:15px}
 .composer input:focus{box-shadow:0 8px 30px rgba(42,157,244,0.12);border-color:var(--accent)}
@@ -71,6 +72,12 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-seri
 .send-btn::after{content:"";position:absolute;width:10px;height:10px;left:50%;top:50%;transform:translate(-50%,-50%) scale(1);background:rgba(255,255,255,0.18);border-radius:50%;opacity:0;transition:transform .6s, opacity .6s}
 .send-btn.pulse::after{transform:translate(-50%,-50%) scale(12);opacity:0}
 .send-icon{transform:translateX(2px);transition:transform .18s}
+
+/* emoji panel (inspired by Webogram) */
+.emoji-panel{position:absolute;bottom:64px;left:12px;width:320px;background:white;border-radius:12px;box-shadow:0 18px 60px rgba(11,18,32,0.12);padding:8px;display:grid;grid-template-columns:repeat(8,1fr);gap:6px;z-index:90;visibility:hidden;opacity:0;transform:translateY(6px);transition:opacity .12s, transform .12s}
+.emoji-panel[aria-hidden="false"]{visibility:visible;opacity:1;transform:none}
+.emoji-cell{font-size:20px;padding:6px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.emoji-cell:hover{background:rgba(11,18,32,0.04)}
 
 /* message actions popup */
 .msg-actions{position:fixed;background:white;padding:8px;border-radius:10px;box-shadow:0 18px 50px rgba(11,18,32,0.14);display:flex;gap:8px;z-index:60;visibility:hidden;opacity:0;transform:translateY(6px);transition:opacity .16s, transform .16s}
@@ -91,4 +98,5 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-seri
   .sidebar{width:72px}
   .meta{display:none}
   .chat-panel{min-width:0}
+  .emoji-panel{left:8px;width:calc(100% - 16px);grid-template-columns:repeat(10,1fr)}
 }

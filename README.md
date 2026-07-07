@@ -1,18 +1,13 @@
-Реализовано обновление интерфейса в стиле Telegram Web: улучшенные стили сообщений, анимации кнопок, реакций и всплывающих действий.
+UI inspired by Webogram (https://github.com/zhukov/webogram). We adapted UI fragments (buttons, emoji panel, send form styles) for this static demo.
 
-Новое в этом коммите
-- Добавлены кнопки подтверждения (модальное окно) для удаления сообщений.
-- Интерактивность: подтверждение удаления, копирование текста, ответ через вставку в поле ввода.
-- Небольшие улучшения UX (анимация кнопки отправки, реакции по клику).
-- Атрибуция: UI вдохновлён Webogram (https://github.com/zhukov/webogram).
+If you want a closer 1:1 copy of Webogram's UI, we can integrate more assets, but note that Webogram is a large Angular app with many dependencies. For exact feature parity (auth via MTProto, chats, contacts) we need a backend (see earlier discussion).
 
-Как включить сайт
-1. Сайт уже находится в ветке main: https://github.com/gfbdsjjdrj467-a11y/chatTgg
-2. Включите GitHub Pages: Settings → Pages → Branch: main / Folder: root → Save.
-3. Подождите пару минут и откройте https://gfbdsjjdrj467-a11y.github.io/chatTgg/
+How to enable GitHub Pages
+1. Push these files to the `main` branch (they are already in the repo).
+2. Settings → Pages → Branch: main / Folder: root → Save.
+3. Visit https://gfbdsjjdrj467-a11y.github.io/chatTgg/
 
-Если хотите, могу дальше:
-- Добавить иконки (Feather/Material) и Google Fonts;
-- Подключить панель эмодзи с картинками и автодополнением;
-- Сделать PWA (установка на телефон) и настроить manifest;
-- Подключить реальный бэкенд (Firebase / WebSocket) для живого чата.
+Next steps I can do:
+- Expand emoji library or load an emoji dataset.
+- Replace emoji picker with Webogram's emoji/sticker panel (requires more assets).
+- Integrate icons (feather/material) and Google Fonts.

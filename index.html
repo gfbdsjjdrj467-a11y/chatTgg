@@ -62,6 +62,7 @@
       </div>
 
       <form class="composer" id="composer" autocomplete="off">
+        <button type="button" class="emoji-btn" id="emoji-btn" aria-label="Emoji">😊</button>
         <button type="button" class="attach-btn" id="attach" aria-label="Attach">📎</button>
         <input id="input" name="message" placeholder="Напишите сообщение..." autocomplete="off">
         <button id="send" class="send-btn" type="submit" aria-label="Send">
@@ -70,6 +71,8 @@
           </svg>
         </button>
       </form>
+
+      <div id="emoji-panel" class="emoji-panel" aria-hidden="true"></div>
 
       <!-- message actions popup -->
       <div id="msg-actions" class="msg-actions" role="dialog" aria-hidden="true">

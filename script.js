@@ -1,9 +1,11 @@
-// script.js — interactive behavior inspired by Telegram Web controls
+// script.js — interactive behavior inspired by Telegram Web controls + emoji picker
 const form = document.getElementById('composer');
 const input = document.getElementById('input');
 const messages = document.getElementById('messages');
 const sendBtn = document.getElementById('send');
 const attachBtn = document.getElementById('attach');
+const emojiBtn = document.getElementById('emoji-btn');
+const emojiPanel = document.getElementById('emoji-panel');
 const msgActions = document.getElementById('msg-actions');
 const confirmModal = document.getElementById('confirm');
 const confirmMsgEl = document.getElementById('confirm-message');
@@ -11,6 +13,26 @@ const confirmOk = document.getElementById('confirm-ok');
 const confirmCancel = document.getElementById('confirm-cancel');
 let lastMsgId = 2;
 let currentMsgTarget = null;
+
+// Basic emoji set (small, curated) — can be expanded or replaced with full set
+const EMOJIS = ['😀','😁','😂','🤣','😊','😍','😘','😎','🤔','🙃','🥳','🤩','😭','😅','😇','🤝','👍','🙏','🎉','💯','🔥','✨','🎯','🌟','📎','📷','🎵','🔒','⚙️','🧭','📍','🤖'];
+
+function buildEmojiPanel(){
+  emojiPanel.innerHTML = '';
+  EMOJIS.forEach(e=>{
+    const el = document.createElement('div');
+    el.className = 'emoji-cell';
+    el.textContent = e;
+    el.addEventListener('click', ()=>{
+      insertAtCursor(input, e);
+      input.focus();
+      // close panel after pick
+      toggleEmoji(false);
+    });
+    emojiPanel.appendChild(el);
+  });
+}
+buildEmojiPanel();
 
 // Send message handler
 form.addEventListener('submit', e=>{
@@ -28,6 +50,24 @@ form.addEventListener('submit', e=>{
 attachBtn.addEventListener('click', ()=>{
   alert('Attach file — mobile/web flow not implemented in demo.');
 });
+
+// Emoji toggle
+emojiBtn.addEventListener('click', ()=> toggleEmoji());
+function toggleEmoji(force){
+  const isOpen = emojiPanel.getAttribute('aria-hidden') === 'false';
+  const open = typeof force === 'boolean' ? force : !isOpen;
+  emojiPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+}
+
+// helper to insert at cursor
+function insertAtCursor(el, text) {
+  const start = el.selectionStart || 0;
+  const end = el.selectionEnd || 0;
+  const value = el.value || '';
+  el.value = value.slice(0, start) + text + value.slice(end);
+  const pos = start + text.length;
+  el.selectionStart = el.selectionEnd = pos;
+}
 
 // Add outgoing message
 function addOutgoing(text){
@@ -110,8 +150,10 @@ function showMsgActions(x,y,msgEl){
 }
 
 document.addEventListener('click', e=>{
-  if(!e.target.closest('.message') && !e.target.closest('#msg-actions')){
+  if(!e.target.closest('.message') && !e.target.closest('#msg-actions') && !e.target.closest('#emoji-panel') && !e.target.closest('#emoji-btn')){
     msgActions.setAttribute('aria-hidden','true');
+    // close emoji panel if clicked outside
+    if(emojiPanel.getAttribute('aria-hidden') === 'false') toggleEmoji(false);
   }
 });
 
